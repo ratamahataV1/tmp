@@ -1,10 +1,68 @@
+//chaos UPdate...
+
+<!-- SID(vicious) : Debug Mode – Category-Based Filtering -->
+<script>
+jQuery(document).ready(function($) {
+
+  function normalizeGreek(str) {
+    return str.trim().toLowerCase()
+      .replace(/[άΆ]/g, 'α')
+      .replace(/[έΈ]/g, 'ε')
+      .replace(/[ίΊ]/g, 'ι')
+      .replace(/[όΌ]/g, 'ο')
+      .replace(/[ύΎ]/g, 'υ')
+      .replace(/[ήΉ]/g, 'η')
+      .replace(/[ώΏ]/g, 'ω')
+      .replace(/[^a-z0-9α-ω]+/gi, '-') // replace non-letters
+      .replace(/^-+|-+$/g, '');        // trim dashes
+  }
+
+  console.log("💥 SID: Starting portfolio item scan");
+
+  $('.et_pb_portfolio_item').each(function (index) {
+    const $item = $(this);
+    const rawCats = $item.find('.et_pb_portfolio_category').text();
+    console.log(`🔍 Item ${index} raw category text:`, rawCats);
+
+    const cats = rawCats.split(',');
+    cats.forEach(function (cat) {
+      const cleanCat = normalizeGreek(cat);
+      console.log(`➕ Adding class: category-${cleanCat} to item ${index}`);
+      $item.addClass(`category-${cleanCat}`);
+    });
+  });
+
+  $('.sid-filter li').on('click', function () {
+    const filter = $(this).data('filter');
+    console.log(`🎯 Filter selected: ${filter}`);
+
+    $('.sid-filter li').removeClass('active');
+    $(this).addClass('active');
+
+    if (filter === 'all') {
+      $('.et_pb_portfolio_item').fadeIn(300);
+    } else {
+      $('.et_pb_portfolio_item').hide();
+      const $filtered = $(`.et_pb_portfolio_item.category-${filter}`);
+      console.log(`✅ Showing ${$filtered.length} items with class category-${filter}`);
+      $filtered.fadeIn(300);
+    }
+  });
+
+});
+</script>
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++
+================================================= */
+
 /sample
 <span id="typed-text"></span>
 
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script>
   var typed = new Typed('#typed-text', {
-    strings: ["text1", "text2", "text3"],
+    strings: ["virable x", "virable y", "virable z"],
     typeSpeed: 80,
     backSpeed: 50,
     loop: true
@@ -23,7 +81,7 @@
 
 <script>
   var typed = new Typed('#typed-text', {
-    strings: ["text1", "text2", "text3"],
+    strings: ["virable x", "virable y", "virable z"],
     typeSpeed: 80,
     backSpeed: 50,
     loop: true
